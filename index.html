@@ -9,13 +9,12 @@
     :root {
       --bg: #e9f0f7;
       --bg2: #dfe8f2;
-      --glass: rgba(255, 255, 255, 0.48);
-      --glass-strong: rgba(255, 255, 255, 0.66);
-      --line: rgba(255, 255, 255, 0.52);
+      --glass: rgba(255, 255, 255, 0.46);
+      --line: rgba(255, 255, 255, 0.48);
       --text: #0f1218;
       --muted: #667382;
       --blue: #5f8fcb;
-      --shadow: 0 24px 80px rgba(36, 54, 78, 0.14);
+      --shadow: 0 28px 90px rgba(36, 54, 78, 0.16);
       --soft-shadow: 0 14px 40px rgba(36, 54, 78, 0.08);
       --max: 1220px;
     }
@@ -37,6 +36,7 @@
         radial-gradient(circle at 12% 8%, rgba(120, 166, 212, 0.22), transparent 30%),
         radial-gradient(circle at 90% 18%, rgba(255, 255, 255, 0.55), transparent 24%),
         linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x: hidden;
     }
 
     a {
@@ -59,18 +59,20 @@
 
     .nav-wrap {
       position: sticky;
-      top: 18px;
+      top: 0;
       z-index: 50;
-      padding-top: 18px;
+      padding: 18px 0 8px;
+      background: linear-gradient(180deg, rgba(233, 240, 247, 0.86), rgba(233, 240, 247, 0));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .nav {
-      min-height: 62px;
-      border-radius: 999px;
+      min-height: 44px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 0 22px;
+      padding: 0 4px;
     }
 
     .brand {
@@ -87,7 +89,7 @@
     }
 
     .nav-links a {
-      opacity: 0.85;
+      opacity: 0.82;
       transition: opacity 180ms ease, color 180ms ease;
     }
 
@@ -103,26 +105,17 @@
     }
 
     .logo-hero {
-      padding: 58px 0 34px;
+      padding: 44px 0 20px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .logo-card {
-      width: min(360px, 70vw);
-      aspect-ratio: 1 / 1;
-      border-radius: 36px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-
-    .logo-card img {
-      width: 78%;
-      height: 78%;
-      object-fit: contain;
+    .site-logo {
+      width: min(230px, 44vw);
+      height: auto;
       display: block;
+      filter: drop-shadow(0 18px 36px rgba(36, 54, 78, 0.12));
     }
 
     .section {
@@ -137,31 +130,33 @@
       font-weight: 700;
     }
 
-    /* OUTSIDE ORBIT */
+    /* OUTSIDE CONTINUOUS ORBIT */
 
     .orbit-stage {
       position: relative;
-      min-height: 610px;
-      perspective: 1400px;
+      min-height: 700px;
+      perspective: 1500px;
+      overflow: visible;
     }
 
     .location-card {
       position: absolute;
-      top: 52px;
+      top: 76px;
       left: 50%;
-      width: min(520px, 78vw);
-      min-height: 330px;
+      width: min(510px, 78vw);
+      min-height: 315px;
       border-radius: 36px;
       padding: 28px;
       cursor: pointer;
       overflow: hidden;
       transform-origin: center center;
+      will-change: transform, opacity, filter;
       transition:
-        transform 520ms cubic-bezier(.2,.8,.2,1),
-        opacity 320ms ease,
-        filter 320ms ease,
-        min-height 420ms cubic-bezier(.2,.8,.2,1),
-        box-shadow 320ms ease;
+        opacity 240ms ease,
+        filter 240ms ease,
+        min-height 360ms cubic-bezier(.2,.8,.2,1),
+        width 360ms cubic-bezier(.2,.8,.2,1),
+        box-shadow 260ms ease;
     }
 
     .location-card::before {
@@ -178,118 +173,65 @@
       z-index: 1;
     }
 
-    .location-label {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(15, 18, 24, 0.42);
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
     .location-card h3 {
       margin: 0;
-      font-size: 32px;
+      font-size: 34px;
       letter-spacing: -0.06em;
       line-height: 1;
-    }
-
-    .location-card p {
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.45;
-      max-width: 350px;
     }
 
     .location-preview {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 30px;
       opacity: 0;
       max-height: 0;
       overflow: hidden;
       transition: opacity 320ms ease, max-height 420ms ease;
     }
 
-    .location-card.active {
-      min-height: 520px;
+    .location-card.expanded {
+      width: min(760px, 88vw);
+      min-height: 610px;
       box-shadow: var(--shadow);
-      z-index: 10;
     }
 
-    .location-card.active .location-preview {
+    .location-card.expanded .location-preview {
       opacity: 1;
-      max-height: 260px;
+      max-height: 450px;
     }
 
     .photo-placeholder {
-      height: 130px;
+      height: 132px;
       border-radius: 20px;
       display: grid;
       place-items: center;
-      background: rgba(255, 255, 255, 0.48);
+      background: rgba(255, 255, 255, 0.46);
       border: 1px solid rgba(255,255,255,0.42);
       color: rgba(15, 18, 24, 0.42);
       font-size: 13px;
       font-weight: 650;
     }
 
-    .location-card.pos-0 {
-      transform: translateX(-50%) translateZ(80px) rotateY(0deg) scale(1);
-      opacity: 1;
-      filter: none;
-      z-index: 10;
-    }
-
-    .location-card.pos-1 {
-      transform: translateX(calc(-50% + 380px)) translateZ(-120px) rotateY(-18deg) scale(0.86);
-      opacity: 0.62;
-      filter: saturate(0.8);
-      z-index: 6;
-    }
-
-    .location-card.pos-2 {
-      transform: translateX(calc(-50% + 620px)) translateZ(-260px) rotateY(-28deg) scale(0.72);
-      opacity: 0.28;
-      filter: saturate(0.65);
-      z-index: 4;
-    }
-
-    .location-card.pos--1 {
-      transform: translateX(calc(-50% - 380px)) translateZ(-120px) rotateY(18deg) scale(0.86);
-      opacity: 0.62;
-      filter: saturate(0.8);
-      z-index: 6;
-    }
-
-    .location-card.pos--2 {
-      transform: translateX(calc(-50% - 620px)) translateZ(-260px) rotateY(28deg) scale(0.72);
-      opacity: 0.28;
-      filter: saturate(0.65);
-      z-index: 4;
-    }
-
-    .location-card.hidden-card {
-      transform: translateX(-50%) translateZ(-360px) scale(0.62);
-      opacity: 0;
+    .orbit-stage.is-expanded .location-card:not(.expanded) {
+      opacity: 0.12 !important;
+      filter: blur(1px) saturate(0.5) !important;
       pointer-events: none;
-      z-index: 0;
     }
 
     .orbit-controls {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-top: -40px;
+      margin-top: -48px;
       position: relative;
-      z-index: 12;
+      z-index: 30;
     }
 
     .orbit-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border: 0;
       border-radius: 999px;
       background: rgba(15, 18, 24, 0.20);
@@ -329,12 +271,6 @@
       margin: 0;
       font-size: 34px;
       letter-spacing: -0.06em;
-    }
-
-    .pet-card p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 16px;
     }
 
     .pet-preview {
@@ -385,8 +321,6 @@
       background: linear-gradient(135deg, #e3ede8, #f4f8f5);
     }
 
-    /* CAR */
-
     .car-panel {
       border-radius: 38px;
       padding: 24px;
@@ -415,8 +349,6 @@
     .car-box.bottom {
       grid-column: 1 / 3;
     }
-
-    /* REACH OUT */
 
     .reach-panel {
       border-radius: 38px;
@@ -475,8 +407,7 @@
       .nav {
         grid-template-columns: 1fr;
         gap: 10px;
-        border-radius: 28px;
-        padding: 16px;
+        padding: 12px 0;
       }
 
       .brand,
@@ -490,7 +421,11 @@
       }
 
       .logo-hero {
-        padding-top: 38px;
+        padding-top: 34px;
+      }
+
+      .site-logo {
+        width: min(190px, 48vw);
       }
 
       .orbit-stage {
@@ -500,23 +435,21 @@
       }
 
       .location-card,
-      .location-card.pos-0,
-      .location-card.pos-1,
-      .location-card.pos-2,
-      .location-card.pos--1,
-      .location-card.pos--2,
-      .location-card.hidden-card {
+      .location-card.expanded {
         position: relative;
         inset: auto;
+        left: auto;
+        top: auto;
         width: 100%;
-        transform: none;
-        opacity: 1;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
         pointer-events: auto;
         min-height: 300px;
       }
 
-      .location-card.active {
-        min-height: 500px;
+      .location-card.expanded {
+        min-height: 610px;
       }
 
       .orbit-controls {
@@ -562,7 +495,7 @@
 <body>
   <div class="shell">
     <div class="nav-wrap">
-      <nav class="nav glass">
+      <nav class="nav">
         <a class="brand" href="#top">Eli.V</a>
 
         <div class="nav-links">
@@ -577,80 +510,55 @@
     </div>
 
     <header class="logo-hero" id="top">
-      <div class="logo-card glass">
-        <img src="assets/logo.svg" alt="Eli Vassar logo">
-      </div>
+      <img class="site-logo" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMDUgOTcxIiB3aWR0aD0iMTAwNSIgaGVpZ2h0PSI5NzEiPgoJPGRlZnM+CgkJPGltYWdlICB3aWR0aD0iNDc3IiBoZWlnaHQ9IjYwOCIgaWQ9ImltZzEiIGhyZWY9ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZDBBQUFKZ0NBTUFBQUQ0WDBscUFBQUFBWE5TUjBJQjJja3Nmd0FBQVN4UVRGUkYvLzhBZzRNQVUxTUFNREFBR1JrQUVCQUFEdzhBR0JnQUxDd0FQejhBU0VnQWMzTUE1K2NBdDdjQVltSUFRa0lBUTBNQVkyTUF2cjRBOVBRQVBqNEFBQUFBSFIwQTJ0b0FsNWNBbjU4QWFtb0FLeXNBL1B3QXo4OEFBd01BQkFRQTFOUUE0dUlBcGFVQVIwY0FxYWtBYTJzQURBd0FtcG9BV1ZrQUJnWUFtNXNBV2xvQVcxc0FDUWtBZlgwQUlpSUFLaW9Bd2NFQVpHUUFibTRBOHZJQUx5OEE5dllBSVNFQXJhMEE5L2NBQ2dvQURRMEFkSFFBdExRQXY3OEF4Y1VBeHNZQThQQUFQRHdBNE9BQWxKUUFRRUFBUmtZQXlzb0FDd3NBdHJZQW1KZ0FFeE1BN093QWQzY0FjWEVBYVdrQTN0NEEwdElBTXpNQTA5TUFDQWdBTGk0QWlJZ0FGUlVBWm1ZQVhWMEFpWWtBblowQUJ3Y0F2YjBBR2hvQTcrOEFYbDRBa3BJQWxaVUE1T1FBZEtXQitnQUFBR1IwVWs1VEFQLy8vLy8vLy8vLy8vLy9nUC8vLy8vLy93RC8vLy8vLy8vLy93RC8vLy8vMFAvLy8vLy8vLy8vLy8vLy8vLy8vLy8vL3dEL0FQLy9BUC8vLy8vLy8vOEEvL0QvLy8vLy8vLy8vekQvLy8vLy8vLy8vLy8vLy8vLy8vLy8vLzhBLy8vL3NFOXJvdVVBQUFlVlNVUkJWSGljN2RqYnE2ZGxIWWZoOTlWSUhCS0NzZEZSaXpZNlNqZ0VhYUdDR0JHSVJGQUlva2FJL2wrQlJDY2hDTWJRWG14ak9SUWh5QXdKQXlKV05pS09HeFJqek4zcW9LTmdyWVAxWFMvcjVycE8xdG5uZWZqZFBHdTNMc3V5L3RjeTRzTkxwcFlQeHNjZnpOdmpoMXl4cmhmM2UvT3lkYjJ3ck12UncvM3hqMXZYVjRaUHVQcjltZDFQL0d0ZHJubHZaanZqaytzL1J2Yy91NzQ3TTN4a1hiOHcvNDNuc0x2aWhkSDVMNzAxdGZ6YWV2MmJVOXNabno0M09uL2k5YW5sdDlZYkwweHRaeHg5Zm5UK00yUExWNnE3TzNYTDFDMDd4SFcvL09yWWVNV3hzNlB6YzNVWGIzZDNoL2p0cXJzcmRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4weWRjdlVMVk8zVE4yeVkyZEg1K2ZxTHVydXp0c3RVN2RNM2JLcnpvek96OVc5V3QzZEhYOXVkUDRyTDA4dFg2dnU3cTU3ZG5UK3EzK2ZXdjZjdXJzYWZyckxyZi81NTh6dzUxZDFkL0hGOWZUMEViZGZ2T3pjL3ErZVdKOCttTDkzYjFybnp4ankwb3NIY3N4ZEgrNzM0aVcvWFE3b3Z4azNQelYvQnYrSHVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG02WnVtWHFscWxicG03WmdkUTkrY3o4R1VQVzliWW5oNC80MXZualQrLzM1cDFuVHY1eU9hQzZoOW90Njg5SDl5Ly8xTXp1MTM2bTdoNThmVDAxdVA2ZDAwUERSLzc5aXJwN2NPbjV3ZkU3emswdDMvNVRkZmZnamlmbXRyLzd4N0hwaTIrcXV3ZEhuNS9iL3Q2Ky8wTDFQM2MrcnU0ZXFGdW1icG02WmNmT3ptM2YrL3V4YVhYM3hOc3RVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRVN2RNM1RKMXk5UXRPM1oyYmx2ZHJYbTdaZXFXcVZ0MjFabTViWFczZHZ5NXVXMTF0M2JkczNQYjZtNXM4dW1xdTZtN1BuajU5T1Irb083TlQ4MmZjVWlwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cGFwVzZadW1icGw2cFlGNnA1OFp2Nk1RK3FlUDR4TkgxUmR0cUJ1MlRjZVc5YjcvRXlNK3VaUGx2WCtKN2UrQlROdStOT3lQdkNiclcvQmpDdi9wbTZYdW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTZadW1YcWxxbGJwbTdaVHQwYjN0ajZGc3pZcWZ2Z3I3ZStCVE4yNnQ1NFlldGJNRVBkc3AyNjMvL1YxcmRneHQwL1h0WWYvR0xyV3pEam5oOHQ2MFB2L0c3cmF6RGkyNDh1Ni9Md3FhMnZ3WVFUNy8zNTQ3ckxJMzg1di9WTjJIZlgzUHJEWmFmdXN0ejc2dFozWVgrdGYzMTc1OHRIbk43VklDV2ZFbmtBQUFBQVNVVk9SSzVDWUlJPSIvPgoJPC9kZWZzPgoJPHN0eWxlPgoJPC9zdHlsZT4KCTx1c2UgaWQ9IkJhY2tncm91bmQiIGhyZWY9IiNpbWcxIiB4PSIyNTIiIHk9IjE3MCIvPgoJPGcgaWQ9IkZvbGRlciAxIj4KCTwvZz4KCTxnIGlkPSJGb2xkZXIgMiI+Cgk8L2c+Cjwvc3ZnPg==" alt="Eli Vassar logo">
     </header>
 
     <section class="section" id="outside">
       <h1 class="section-title">Outside</h1>
 
       <div class="orbit-stage" id="orbitStage">
-        <article class="location-card glass active" style="background: linear-gradient(135deg, #dce9f7, #eff5fb);">
-          <div class="location-content">
-            <div class="location-label">Country</div>
-            <h3>Czech Republic</h3>
-            <p>Travel photos, city streets, and gallery highlights.</p>
-          </div>
-
+        <article class="location-card glass" style="background: linear-gradient(135deg, #dce9f7, #eff5fb);">
+          <div class="location-content"><h3>Location #1</h3></div>
           <div class="location-preview">
-            <div class="photo-placeholder">Photo 1</div>
-            <div class="photo-placeholder">Photo 2</div>
-            <div class="photo-placeholder">Photo 3</div>
-            <div class="photo-placeholder">Photo 4</div>
-            <div class="photo-placeholder">Photo 5</div>
-            <div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 1</div><div class="photo-placeholder">Photo 2</div><div class="photo-placeholder">Photo 3</div>
+            <div class="photo-placeholder">Photo 4</div><div class="photo-placeholder">Photo 5</div><div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 7</div><div class="photo-placeholder">Photo 8</div><div class="photo-placeholder">Photo 9</div>
           </div>
         </article>
 
         <article class="location-card glass" style="background: linear-gradient(135deg, #eae6de, #f5f2eb);">
-          <div class="location-content">
-            <div class="location-label">Place</div>
-            <h3>San Diego</h3>
-            <p>Local photos, architecture, coast, and daily scenes.</p>
-          </div>
-
+          <div class="location-content"><h3>Location #2</h3></div>
           <div class="location-preview">
-            <div class="photo-placeholder">Photo 1</div>
-            <div class="photo-placeholder">Photo 2</div>
-            <div class="photo-placeholder">Photo 3</div>
-            <div class="photo-placeholder">Photo 4</div>
-            <div class="photo-placeholder">Photo 5</div>
-            <div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 1</div><div class="photo-placeholder">Photo 2</div><div class="photo-placeholder">Photo 3</div>
+            <div class="photo-placeholder">Photo 4</div><div class="photo-placeholder">Photo 5</div><div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 7</div><div class="photo-placeholder">Photo 8</div><div class="photo-placeholder">Photo 9</div>
           </div>
         </article>
 
         <article class="location-card glass" style="background: linear-gradient(135deg, #dfece7, #edf5f1);">
-          <div class="location-content">
-            <div class="location-label">Archive</div>
-            <h3>Other Trips</h3>
-            <p>Future travel and photography collections.</p>
-          </div>
-
+          <div class="location-content"><h3>Location #3</h3></div>
           <div class="location-preview">
-            <div class="photo-placeholder">Photo 1</div>
-            <div class="photo-placeholder">Photo 2</div>
-            <div class="photo-placeholder">Photo 3</div>
-            <div class="photo-placeholder">Photo 4</div>
-            <div class="photo-placeholder">Photo 5</div>
-            <div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 1</div><div class="photo-placeholder">Photo 2</div><div class="photo-placeholder">Photo 3</div>
+            <div class="photo-placeholder">Photo 4</div><div class="photo-placeholder">Photo 5</div><div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 7</div><div class="photo-placeholder">Photo 8</div><div class="photo-placeholder">Photo 9</div>
           </div>
         </article>
 
         <article class="location-card glass" style="background: linear-gradient(135deg, #e7e9f4, #f3f5fb);">
-          <div class="location-content">
-            <div class="location-label">Future</div>
-            <h3>New Gallery</h3>
-            <p>Placeholder for another location later.</p>
-          </div>
-
+          <div class="location-content"><h3>Location #4</h3></div>
           <div class="location-preview">
-            <div class="photo-placeholder">Photo 1</div>
-            <div class="photo-placeholder">Photo 2</div>
-            <div class="photo-placeholder">Photo 3</div>
-            <div class="photo-placeholder">Photo 4</div>
-            <div class="photo-placeholder">Photo 5</div>
-            <div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 1</div><div class="photo-placeholder">Photo 2</div><div class="photo-placeholder">Photo 3</div>
+            <div class="photo-placeholder">Photo 4</div><div class="photo-placeholder">Photo 5</div><div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 7</div><div class="photo-placeholder">Photo 8</div><div class="photo-placeholder">Photo 9</div>
+          </div>
+        </article>
+
+        <article class="location-card glass" style="background: linear-gradient(135deg, #efe6ee, #f8f1f6);">
+          <div class="location-content"><h3>Location #5</h3></div>
+          <div class="location-preview">
+            <div class="photo-placeholder">Photo 1</div><div class="photo-placeholder">Photo 2</div><div class="photo-placeholder">Photo 3</div>
+            <div class="photo-placeholder">Photo 4</div><div class="photo-placeholder">Photo 5</div><div class="photo-placeholder">Photo 6</div>
+            <div class="photo-placeholder">Photo 7</div><div class="photo-placeholder">Photo 8</div><div class="photo-placeholder">Photo 9</div>
           </div>
         </article>
       </div>
@@ -660,46 +568,15 @@
 
     <section class="section" id="animals">
       <h2 class="section-title">Animals</h2>
-
       <div class="pets-stage">
-        <article class="pet-card glass">
-          <h3>Dora</h3>
-          <p>Photos of Dora will go here.</p>
-
-          <div class="pet-preview">
-            <div class="photo-placeholder">Dora 1</div>
-            <div class="photo-placeholder">Dora 2</div>
-            <div class="photo-placeholder">Dora 3</div>
-          </div>
-        </article>
-
-        <article class="pet-card glass">
-          <h3>Cocoa</h3>
-          <p>Photos of Cocoa will go here.</p>
-
-          <div class="pet-preview">
-            <div class="photo-placeholder">Cocoa 1</div>
-            <div class="photo-placeholder">Cocoa 2</div>
-            <div class="photo-placeholder">Cocoa 3</div>
-          </div>
-        </article>
-
-        <article class="pet-card glass">
-          <h3>Daisy</h3>
-          <p>Photos of Daisy will go here.</p>
-
-          <div class="pet-preview">
-            <div class="photo-placeholder">Daisy 1</div>
-            <div class="photo-placeholder">Daisy 2</div>
-            <div class="photo-placeholder">Daisy 3</div>
-          </div>
-        </article>
+        <article class="pet-card glass"><h3>Dora</h3><div class="pet-preview"><div class="photo-placeholder">Dora 1</div><div class="photo-placeholder">Dora 2</div><div class="photo-placeholder">Dora 3</div></div></article>
+        <article class="pet-card glass"><h3>Cocoa</h3><div class="pet-preview"><div class="photo-placeholder">Cocoa 1</div><div class="photo-placeholder">Cocoa 2</div><div class="photo-placeholder">Cocoa 3</div></div></article>
+        <article class="pet-card glass"><h3>Daisy</h3><div class="pet-preview"><div class="photo-placeholder">Daisy 1</div><div class="photo-placeholder">Daisy 2</div><div class="photo-placeholder">Daisy 3</div></div></article>
       </div>
     </section>
 
     <section class="section" id="car">
       <h2 class="section-title">Car</h2>
-
       <div class="car-panel glass">
         <div class="car-grid">
           <div class="car-box">Side view</div>
@@ -711,33 +588,13 @@
 
     <section class="section reach-out" id="reach-out">
       <h2 class="section-title">Reach out</h2>
-
       <div class="reach-panel glass">
         <div class="reach-grid">
-          <a class="reach-link" href="#" aria-disabled="true">
-            <div class="reach-name">Email</div>
-            <div class="reach-meta">coming soon</div>
-          </a>
-
-          <a class="reach-link" href="https://instagram.com/eli.vassar" target="_blank" rel="noopener">
-            <div class="reach-name">Instagram</div>
-            <div class="reach-meta">instagram.com/eli.vassar</div>
-          </a>
-
-          <a class="reach-link" href="#" aria-disabled="true">
-            <div class="reach-name">Discord</div>
-            <div class="reach-meta">eliive</div>
-          </a>
-
-          <a class="reach-link" href="https://youtube.com/@Eliveboards" target="_blank" rel="noopener">
-            <div class="reach-name">YouTube</div>
-            <div class="reach-meta">youtube.com/@Eliveboards</div>
-          </a>
-
-          <a class="reach-link" href="#" aria-disabled="true">
-            <div class="reach-name">Keyboard site</div>
-            <div class="reach-meta">coming soon</div>
-          </a>
+          <a class="reach-link" href="#" aria-disabled="true"><div class="reach-name">Email</div><div class="reach-meta">coming soon</div></a>
+          <a class="reach-link" href="https://instagram.com/eli.vassar" target="_blank" rel="noopener"><div class="reach-name">Instagram</div><div class="reach-meta">instagram.com/eli.vassar</div></a>
+          <a class="reach-link" href="#" aria-disabled="true"><div class="reach-name">Discord</div><div class="reach-meta">eliive</div></a>
+          <a class="reach-link" href="https://youtube.com/@Eliveboards" target="_blank" rel="noopener"><div class="reach-name">YouTube</div><div class="reach-meta">youtube.com/@Eliveboards</div></a>
+          <a class="reach-link" href="#" aria-disabled="true"><div class="reach-name">Keyboard site</div><div class="reach-meta">coming soon</div></a>
         </div>
       </div>
     </section>
@@ -749,66 +606,111 @@
   </div>
 
   <script>
+    const stage = document.getElementById("orbitStage");
     const locationCards = Array.from(document.querySelectorAll(".location-card"));
     const controls = document.getElementById("orbitControls");
-    let activeIndex = 0;
 
-    function renderOrbit() {
+    let rotation = 0;
+    let expandedIndex = null;
+    let lastTime = null;
+    const speed = 0.00016; // smaller = slower, larger = faster
+
+    function shortestAngleDistance(a, b) {
+      let diff = Math.atan2(Math.sin(a - b), Math.cos(a - b));
+      return diff;
+    }
+
+    function setExpanded(index) {
+      expandedIndex = index;
+      const targetAngle = -index * ((Math.PI * 2) / locationCards.length);
+      rotation = targetAngle;
+      render();
+    }
+
+    function clearExpanded() {
+      expandedIndex = null;
+      render();
+    }
+
+    function render() {
+      const count = locationCards.length;
+      const step = (Math.PI * 2) / count;
+
+      stage.classList.toggle("is-expanded", expandedIndex !== null);
+
       locationCards.forEach((card, index) => {
-        card.classList.remove(
-          "active",
-          "pos-0",
-          "pos-1",
-          "pos-2",
-          "pos--1",
-          "pos--2",
-          "hidden-card"
-        );
+        const angle = rotation + index * step;
+        const sin = Math.sin(angle);
+        const cos = Math.cos(angle);
 
-        let offset = index - activeIndex;
+        const x = sin * 520;
+        const z = cos * 260;
+        const scale = 0.72 + ((cos + 1) / 2) * 0.34;
+        const opacity = 0.24 + ((cos + 1) / 2) * 0.76;
+        const blur = Math.max(0, 1 - ((cos + 1) / 2)) * 1.1;
+        const zIndex = Math.round(100 + cos * 50);
 
-        if (offset > locationCards.length / 2) offset -= locationCards.length;
-        if (offset < -locationCards.length / 2) offset += locationCards.length;
+        card.style.transform = `translateX(calc(-50% + ${x}px)) translateZ(${z}px) rotateY(${-sin * 18}deg) scale(${scale})`;
+        card.style.opacity = opacity.toFixed(3);
+        card.style.filter = `blur(${blur.toFixed(2)}px) saturate(${0.72 + ((cos + 1) / 2) * 0.42})`;
+        card.style.zIndex = zIndex;
 
-        if (offset === 0) {
-          card.classList.add("active", "pos-0");
-        } else if (offset === 1) {
-          card.classList.add("pos-1");
-        } else if (offset === 2) {
-          card.classList.add("pos-2");
-        } else if (offset === -1) {
-          card.classList.add("pos--1");
-        } else if (offset === -2) {
-          card.classList.add("pos--2");
-        } else {
-          card.classList.add("hidden-card");
-        }
+        card.classList.toggle("expanded", expandedIndex === index);
       });
 
+      const frontIndex = getFrontIndex();
+
       document.querySelectorAll(".orbit-dot").forEach((dot, index) => {
-        dot.classList.toggle("active", index === activeIndex);
+        dot.classList.toggle("active", index === (expandedIndex ?? frontIndex));
       });
     }
 
-    locationCards.forEach((card, index) => {
-      card.addEventListener("click", () => {
-        activeIndex = index;
-        renderOrbit();
+    function getFrontIndex() {
+      const count = locationCards.length;
+      const step = (Math.PI * 2) / count;
+      let bestIndex = 0;
+      let bestScore = -Infinity;
+
+      locationCards.forEach((_, index) => {
+        const angle = rotation + index * step;
+        const score = Math.cos(angle);
+        if (score > bestScore) {
+          bestScore = score;
+          bestIndex = index;
+        }
       });
+
+      return bestIndex;
+    }
+
+    function animate(time) {
+      if (lastTime === null) lastTime = time;
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (expandedIndex === null) {
+        rotation += delta * speed;
+      }
+
+      render();
+      requestAnimationFrame(animate);
+    }
+
+    locationCards.forEach((card, index) => {
+      card.addEventListener("click", () => setExpanded(index));
     });
+
+    stage.addEventListener("mouseleave", () => clearExpanded());
 
     locationCards.forEach((_, index) => {
       const dot = document.createElement("button");
       dot.className = "orbit-dot";
       dot.setAttribute("aria-label", `Show location ${index + 1}`);
-      dot.addEventListener("click", () => {
-        activeIndex = index;
-        renderOrbit();
-      });
+      dot.addEventListener("click", () => setExpanded(index));
       controls.appendChild(dot);
     });
 
-    renderOrbit();
+    requestAnimationFrame(animate);
 
     const petCards = document.querySelectorAll(".pet-card");
 
@@ -817,7 +719,6 @@
         petCards.forEach((other) => {
           if (other !== card) other.classList.remove("active");
         });
-
         card.classList.toggle("active");
       });
     });
