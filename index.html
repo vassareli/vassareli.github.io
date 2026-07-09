@@ -4,109 +4,865 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eli Vassar</title>
+
   <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: rgba(255, 255, 255, 0.76);
+      --surface-solid: #ffffff;
+      --text: #111114;
+      --muted: #6e6e73;
+      --line: rgba(0, 0, 0, 0.08);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+      --blue: #0071e3;
+      --green: #85c99e;
+      --pink: #f3a7bb;
+      --orange: #efb56d;
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f2;
-      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(0, 113, 227, 0.10), transparent 28%),
+        radial-gradient(circle at 86% 20%, rgba(243, 167, 187, 0.18), transparent 24%),
+        var(--bg);
+      color: var(--text);
     }
 
-    nav {
-      text-align: center;
-      padding: 20px;
-      background: white;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-    }
-
-    nav a {
-      margin: 0 12px;
-      color: #111;
+    a {
+      color: inherit;
       text-decoration: none;
-      font-weight: bold;
     }
 
-    header {
-      padding: 90px 24px;
-      text-align: center;
+    .nav {
+      width: min(var(--max), calc(100% - 42px));
+      margin: 22px auto 0;
+      height: 58px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      backdrop-filter: blur(22px);
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 20px;
+      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.06);
+    }
+
+    .brand {
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: #333;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 15px;
+      color: #3b3b3f;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      opacity: 0.8;
+      transition: opacity 180ms ease, color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--blue);
+    }
+
+    .nav-right {
+      justify-self: end;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      width: min(var(--max), calc(100% - 42px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      align-items: center;
+      gap: 34px;
+      padding: 60px 0 40px;
+    }
+
+    .hero-card {
+      min-height: 360px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.62)),
+        linear-gradient(135deg, rgba(0,113,227,0.12), rgba(243,167,187,0.16));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 56px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      right: -90px;
+      bottom: -120px;
+      background: linear-gradient(135deg, rgba(0,113,227,0.16), rgba(133,201,158,0.20));
+      filter: blur(4px);
+    }
+
+    .eyebrow {
+      font-size: 15px;
+      color: var(--blue);
+      font-weight: 650;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
-      font-size: 56px;
-      margin-bottom: 12px;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      margin: 0;
+      position: relative;
+      z-index: 1;
     }
 
-    p {
+    .hero-card p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.35;
+      margin: 24px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .link-panel {
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
+      padding: 22px;
+      backdrop-filter: blur(22px);
+    }
+
+    .link-panel h2 {
+      margin: 0 0 12px;
       font-size: 18px;
-      line-height: 1.6;
+      letter-spacing: -0.04em;
     }
 
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px;
+    .link-panel p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      margin: 0 0 18px;
     }
 
-    .card {
-      background: white;
+    .link-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .link-list a,
+    .link-list span {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 13px;
+      border-radius: 15px;
+      background: rgba(245,245,247,0.78);
+      border: 1px solid rgba(0,0,0,0.04);
+      color: #222;
+      font-size: 14px;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .link-list a:hover {
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    .arrow {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 72px 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section h2 {
+      font-size: clamp(42px, 6vw, 76px);
+      letter-spacing: -0.07em;
+      line-height: 0.98;
+      margin: 0;
+    }
+
+    .section-desc {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .home-tiles {
+      display: grid;
+      grid-template-columns: 1.3fr 0.75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .tile {
+      min-height: 210px;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
       padding: 28px;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      overflow: hidden;
+      position: relative;
+      transition: transform 220ms ease, box-shadow 220ms ease;
     }
 
-    footer {
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.10);
+    }
+
+    .tile.big {
+      min-height: 340px;
+      background:
+        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.72)),
+        linear-gradient(135deg, #dfeaff, #f7e4eb 48%, #eef6ed);
+    }
+
+    .tile.pet {
+      background:
+        linear-gradient(rgba(255,255,255,0.30), rgba(255,255,255,0.78)),
+        linear-gradient(135deg, #f9ecef, #ffffff);
+    }
+
+    .tile.car {
+      background:
+        linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.74)),
+        linear-gradient(135deg, #ececec, #dfe7f2);
+    }
+
+    .tile h3 {
+      font-size: 34px;
+      letter-spacing: -0.055em;
+      margin: 0 0 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tile p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+
+    .placeholder-label {
+      position: absolute;
+      top: 20px;
+      left: 22px;
+      font-size: 13px;
+      color: rgba(0,0,0,0.45);
+      font-weight: 600;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .country-card {
+      min-height: 270px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.82)),
+        var(--accent);
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition:
+        transform 260ms ease,
+        grid-column 260ms ease,
+        min-height 260ms ease,
+        opacity 240ms ease,
+        filter 240ms ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .country-card:hover,
+    .country-card.active {
+      transform: translateY(-6px);
+      min-height: 360px;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-grid:has(.country-card:hover) .country-card:not(:hover) {
+      opacity: 0.45;
+      filter: saturate(0.75);
+    }
+
+    .country-card.active {
+      grid-column: span 2;
+    }
+
+    .country-card h3 {
+      font-size: 30px;
+      letter-spacing: -0.055em;
+      margin: 0;
+    }
+
+    .country-card p {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    .mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 260ms ease, opacity 260ms ease;
+      margin-top: 18px;
+    }
+
+    .country-card:hover .mini-strip,
+    .country-card.active .mini-strip {
+      max-height: 120px;
+      opacity: 1;
+    }
+
+    .mini-img {
+      height: 82px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(0,0,0,0.05);
+      display: grid;
+      place-items: center;
+      color: rgba(0,0,0,0.34);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .pets-stage {
+      min-height: 600px;
+      position: relative;
+    }
+
+    .pet-card {
+      position: absolute;
+      width: 46%;
+      min-height: 230px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.06);
+      padding: 28px;
+      transition:
+        transform 260ms ease,
+        width 260ms ease,
+        min-height 260ms ease,
+        opacity 220ms ease,
+        z-index 0ms;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .pet-card:nth-child(1) {
+      top: 20px;
+      left: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.32), rgba(255,255,255,0.78)),
+        linear-gradient(135deg, #ffe6e6, #fff);
+    }
+
+    .pet-card:nth-child(2) {
+      top: 160px;
+      left: 28%;
+      background:
+        linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.78)),
+        linear-gradient(135deg, #e8ecff, #fff);
+    }
+
+    .pet-card:nth-child(3) {
+      top: 320px;
+      right: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.78)),
+        linear-gradient(135deg, #e8f8ed, #fff);
+    }
+
+    .pets-stage:hover .pet-card:not(:hover) {
+      opacity: 0.28;
+      transform: scale(0.96);
+    }
+
+    .pet-card:hover {
+      width: 58%;
+      min-height: 330px;
+      z-index: 5;
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .pet-card h3 {
+      font-size: 32px;
+      letter-spacing: -0.055em;
+      margin: 0;
+    }
+
+    .pet-card p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .pet-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .pet-card:hover .pet-preview {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .car-gallery {
+      display: grid;
+      grid-template-columns: 1fr 0.28fr 1fr;
+      grid-template-rows: 260px 260px;
+      gap: 0;
+      align-items: stretch;
+      margin-top: 28px;
+    }
+
+    .car-img {
+      background: #e9e9eb;
+      display: grid;
+      place-items: center;
+      color: rgba(0,0,0,0.56);
+      font-size: clamp(20px, 2.5vw, 34px);
+      letter-spacing: -0.045em;
+      padding: 30px;
       text-align: center;
-      padding: 40px 24px;
-      color: #666;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .car-img::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(0,113,227,0.07), transparent),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.85), transparent 30%);
+    }
+
+    .car-img span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-view {
+      grid-column: 1 / 3;
+      grid-row: 1;
+      border-radius: 30px 0 0 30px;
+    }
+
+    .angle-view {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      border-radius: 0 30px 30px 0;
+      background: #eeeeef;
+    }
+
+    .front-view {
+      grid-column: 1 / 4;
+      grid-row: 2;
+      width: 62%;
+      justify-self: center;
+      border-radius: 0 0 30px 30px;
+      background: #e6e6e8;
+    }
+
+    .footer {
+      padding: 54px 0 80px;
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .footer a {
+      color: var(--blue);
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 10px;
+        border-radius: 24px;
+        padding: 16px;
+        position: relative;
+        top: auto;
+      }
+
+      .brand,
+      .nav-right {
+        display: none;
+      }
+
+      .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 34px;
+      }
+
+      .hero-card {
+        padding: 36px 28px;
+        min-height: 360px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-desc {
+        margin-top: 14px;
+      }
+
+      .home-tiles,
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .country-card.active {
+        grid-column: span 1;
+      }
+
+      .pets-stage {
+        min-height: auto;
+        display: grid;
+        gap: 16px;
+      }
+
+      .pet-card,
+      .pet-card:nth-child(1),
+      .pet-card:nth-child(2),
+      .pet-card:nth-child(3) {
+        position: relative;
+        inset: auto;
+        width: 100%;
+      }
+
+      .pet-card:hover {
+        width: 100%;
+      }
+
+      .pet-preview {
+        opacity: 1;
+        transform: none;
+      }
+
+      .car-gallery {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        gap: 14px;
+      }
+
+      .side-view,
+      .angle-view,
+      .front-view {
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        border-radius: 28px;
+        min-height: 250px;
+      }
+
+      .footer {
+        display: block;
+      }
     }
   </style>
 </head>
+
 <body>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#photos">Photos</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+  <nav class="nav">
+    <a class="brand" href="#top">Eli.V</a>
+
+    <div class="nav-links">
+      <a href="#photography">Photography</a>
+      <a href="#car">Car</a>
+      <a href="#pets">Pets</a>
+      <a href="#links">Links</a>
+    </div>
+
+    <div class="nav-right">elivassar.com</div>
   </nav>
 
-  <header>
-    <h1>Eli Vassar</h1>
-    <p>Photos, projects, keyboards, music, and other things I’m working on.</p>
-  </header>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Personal gallery / projects / experiments</div>
+        <h1>Eli Vassar</h1>
+        <p>A clean home base for photography, pets, car photos, keyboards, and whatever else I’m working on.</p>
+      </div>
 
-  <section id="about">
-    <div class="card">
-      <h2>About</h2>
-      <p>Hi, I’m Eli. This is my personal website for photos, projects, and experiments.</p>
-    </div>
-  </section>
+      <aside class="link-panel" id="links">
+        <h2>Links</h2>
+        <p>Places to contact me or find my other stuff.</p>
 
-  <section id="photos">
-    <div class="card">
-      <h2>Photos</h2>
-      <p>Travel and personal photo galleries will go here.</p>
-    </div>
-  </section>
+        <div class="link-list">
+<a href="#" aria-disabled="true">
+  Email coming soon <span class="arrow">↗</span>
+</a>
 
-  <section id="projects">
-    <div class="card">
-      <h2>Projects</h2>
-      <p>Code projects, keyboard builds, and other work will go here.</p>
-    </div>
-  </section>
+          <a href="https://www.instagram.com/eli.vassar" target="_blank" rel="noopener">
+            Instagram <span class="arrow">↗</span>
+          </a>
 
-  <section id="contact">
-    <div class="card">
-      <h2>Contact</h2>
-      <p>Links and contact info will go here.</p>
-    </div>
-  </section>
+          <span>
+            Discord <strong>eliive</strong>
+          </span>
 
-  <footer>
-    <p>© 2026 Eli Vassar</p>
-  </footer>
+          <a href="https://www.youtube.com/@Eliveboards" target="_blank" rel="noopener">
+            YouTube <span class="arrow">↗</span>
+          </a>
+
+          <a href="#" aria-disabled="true">
+            Keyboard site soon <span class="arrow">↗</span>
+          </a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="home-tiles">
+        <a class="tile big" href="#photography">
+          <span class="placeholder-label">Featured</span>
+          <h3>Photography gallery</h3>
+          <p>Vacation and travel photos organized by place.</p>
+        </a>
+
+        <div>
+          <a class="tile pet" href="#pets" style="margin-bottom: 18px;">
+            <span class="placeholder-label">Animals</span>
+            <h3>Pets</h3>
+            <p>Dora, Cocoa, and pet photos.</p>
+          </a>
+
+          <a class="tile car" href="#car">
+            <span class="placeholder-label">Car</span>
+            <h3>Car</h3>
+            <p>Large blended image layout.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="photography">
+      <div class="section-head">
+        <h2>Photography</h2>
+        <p class="section-desc">
+          Hover on desktop or tap on mobile. Each country card expands to preview more photos.
+          These are placeholders for now.
+        </p>
+      </div>
+
+      <div class="photo-grid">
+        <article class="country-card" style="--accent: linear-gradient(135deg, #dbeafe, #fff);">
+          <div>
+            <span class="placeholder-label">Country</span>
+            <h3>Czech Republic</h3>
+            <p>Placeholder gallery for Prague and travel photos.</p>
+          </div>
+
+          <div class="mini-strip">
+            <div class="mini-img">Photo 1</div>
+            <div class="mini-img">Photo 2</div>
+            <div class="mini-img">Photo 3</div>
+          </div>
+        </article>
+
+        <article class="country-card" style="--accent: linear-gradient(135deg, #fff3d8, #fff);">
+          <div>
+            <span class="placeholder-label">Country</span>
+            <h3>San Diego</h3>
+            <p>Local photos, beach, city, and daily life.</p>
+          </div>
+
+          <div class="mini-strip">
+            <div class="mini-img">Photo 1</div>
+            <div class="mini-img">Photo 2</div>
+            <div class="mini-img">Photo 3</div>
+          </div>
+        </article>
+
+        <article class="country-card" style="--accent: linear-gradient(135deg, #e7f8ec, #fff);">
+          <div>
+            <span class="placeholder-label">Country</span>
+            <h3>Other Trips</h3>
+            <p>Future gallery for more countries and vacations.</p>
+          </div>
+
+          <div class="mini-strip">
+            <div class="mini-img">Photo 1</div>
+            <div class="mini-img">Photo 2</div>
+            <div class="mini-img">Photo 3</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pets">
+      <div class="section-head">
+        <h2>Animals</h2>
+        <p class="section-desc">
+          Pet cards overlap on desktop. Hovering makes one expand while the others fade back.
+        </p>
+      </div>
+
+      <div class="pets-stage">
+        <article class="pet-card">
+          <h3>Photos of Dora</h3>
+          <p>Dog photos will go here.</p>
+          <div class="pet-preview">
+            <div class="mini-img">Dora 1</div>
+            <div class="mini-img">Dora 2</div>
+            <div class="mini-img">Dora 3</div>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <h3>Photos of Cocoa</h3>
+          <p>Cat photos will go here.</p>
+          <div class="pet-preview">
+            <div class="mini-img">Cocoa 1</div>
+            <div class="mini-img">Cocoa 2</div>
+            <div class="mini-img">Cocoa 3</div>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <h3>Other Animals</h3>
+          <p>Extra animal photos or future pet galleries.</p>
+          <div class="pet-preview">
+            <div class="mini-img">Photo 1</div>
+            <div class="mini-img">Photo 2</div>
+            <div class="mini-img">Photo 3</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="car">
+      <div class="section-head">
+        <h2>Car</h2>
+        <p class="section-desc">
+          Big image blocks with no hard border. These will blend better once real car photos replace the placeholders.
+        </p>
+      </div>
+
+      <div class="car-gallery">
+        <div class="car-img side-view"><span>Side view of car</span></div>
+        <div class="car-img angle-view"><span>Angle view from front</span></div>
+        <div class="car-img front-view"><span>Front view of car</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 Eli Vassar</div>
+      <div>
+        Built on GitHub Pages · <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const countryCards = document.querySelectorAll(".country-card");
+
+    countryCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        countryCards.forEach((other) => {
+          if (other !== card) other.classList.remove("active");
+        });
+
+        card.classList.toggle("active");
+      });
+    });
+  </script>
 </body>
 </html>
