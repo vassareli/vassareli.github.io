@@ -7,21 +7,25 @@
 
   <style>
     :root {
-      --bg: #f5f5f7;
-      --surface: rgba(255, 255, 255, 0.76);
-      --surface-solid: #ffffff;
-      --text: #111114;
-      --muted: #6e6e73;
-      --line: rgba(0, 0, 0, 0.08);
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
-      --blue: #0071e3;
-      --green: #85c99e;
-      --pink: #f3a7bb;
-      --orange: #efb56d;
+      --bg: #edf2f7;
+      --bg-2: #e7edf4;
+      --surface: rgba(255, 255, 255, 0.55);
+      --surface-strong: rgba(255, 255, 255, 0.72);
+      --line: rgba(255, 255, 255, 0.42);
+      --text: #111318;
+      --muted: #66707c;
+      --shadow: 0 18px 60px rgba(31, 44, 68, 0.10);
+      --shadow-soft: 0 10px 30px rgba(31, 44, 68, 0.06);
+      --blue: #5e87b7;
+      --blue-soft: #dfe9f5;
+      --sand: #ebe7df;
+      --sage: #e2ebe6;
+      --pink: #eee6ea;
+      --stone: #dde3ea;
       --radius-xl: 34px;
-      --radius-lg: 24px;
+      --radius-lg: 26px;
       --radius-md: 18px;
-      --max: 1180px;
+      --max: 1220px;
     }
 
     * {
@@ -34,12 +38,13 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Arial, sans-serif;
-      background:
-        radial-gradient(circle at 18% 12%, rgba(0, 113, 227, 0.10), transparent 28%),
-        radial-gradient(circle at 86% 20%, rgba(243, 167, 187, 0.18), transparent 24%),
-        var(--bg);
       color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(145, 177, 212, 0.20), transparent 28%),
+        radial-gradient(circle at 90% 14%, rgba(220, 226, 238, 0.45), transparent 20%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
     }
 
     a {
@@ -47,529 +52,407 @@
       text-decoration: none;
     }
 
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 18px;
+      z-index: 30;
+      padding-top: 18px;
+    }
+
     .nav {
-      width: min(var(--max), calc(100% - 42px));
-      margin: 22px auto 0;
-      height: 58px;
+      width: 100%;
+      min-height: 64px;
+      border-radius: 999px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      position: sticky;
-      top: 16px;
-      z-index: 20;
-      backdrop-filter: blur(22px);
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 0 20px;
-      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.06);
+      padding: 0 22px;
     }
 
     .brand {
       font-weight: 600;
+      font-size: 17px;
       letter-spacing: -0.03em;
-      color: #333;
+      color: #242933;
     }
 
     .nav-links {
       display: flex;
       gap: 22px;
-      font-size: 15px;
-      color: #3b3b3f;
-      white-space: nowrap;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #4f5a67;
     }
 
     .nav-links a {
-      opacity: 0.8;
-      transition: opacity 180ms ease, color 180ms ease;
+      transition: color 180ms ease, opacity 180ms ease;
+      opacity: 0.9;
     }
 
     .nav-links a:hover {
-      opacity: 1;
       color: var(--blue);
+      opacity: 1;
     }
 
     .nav-right {
       justify-self: end;
-      color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
+      color: #7a8591;
     }
 
-    main {
-      width: min(var(--max), calc(100% - 42px));
-      margin: 0 auto;
+    .intro {
+      padding: 44px 0 24px;
     }
 
-    .hero {
-      min-height: 560px;
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      align-items: center;
-      gap: 34px;
-      padding: 60px 0 40px;
-    }
-
-    .hero-card {
-      min-height: 360px;
+    .intro-card {
       border-radius: var(--radius-xl);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.62)),
-        linear-gradient(135deg, rgba(0,113,227,0.12), rgba(243,167,187,0.16));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 56px;
-      overflow: hidden;
-      position: relative;
+      padding: 34px 34px 28px;
     }
 
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      width: 330px;
-      height: 330px;
-      border-radius: 50%;
-      right: -90px;
-      bottom: -120px;
-      background: linear-gradient(135deg, rgba(0,113,227,0.16), rgba(133,201,158,0.20));
-      filter: blur(4px);
-    }
-
-    .eyebrow {
-      font-size: 15px;
-      color: var(--blue);
-      font-weight: 650;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      line-height: 0.94;
-      letter-spacing: -0.075em;
-      margin: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card p {
-      max-width: 620px;
-      color: var(--muted);
-      font-size: clamp(18px, 2vw, 24px);
-      line-height: 1.35;
-      margin: 24px 0 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .link-panel {
-      border-radius: var(--radius-lg);
-      background: rgba(255,255,255,0.68);
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
-      padding: 22px;
-      backdrop-filter: blur(22px);
-    }
-
-    .link-panel h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      letter-spacing: -0.04em;
-    }
-
-    .link-panel p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
-      margin: 0 0 18px;
-    }
-
-    .link-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .link-list a,
-    .link-list span {
+    .intro-top {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      padding: 12px 13px;
-      border-radius: 15px;
-      background: rgba(245,245,247,0.78);
-      border: 1px solid rgba(0,0,0,0.04);
-      color: #222;
-      font-size: 14px;
-      transition: transform 180ms ease, background 180ms ease;
+      gap: 18px;
+      align-items: start;
+      flex-wrap: wrap;
     }
 
-    .link-list a:hover {
-      transform: translateY(-2px);
-      background: #fff;
+    .intro h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 54px);
+      letter-spacing: -0.06em;
+      line-height: 0.98;
+      font-weight: 650;
     }
 
-    .arrow {
-      color: var(--blue);
-      font-weight: 700;
+    .intro p {
+      margin: 12px 0 0;
+      max-width: 720px;
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+
+    .mini-note {
+      font-size: 13px;
+      color: #7e8a97;
+      white-space: nowrap;
+      padding-top: 4px;
     }
 
     .section {
-      padding: 72px 0;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      padding: 26px 0 54px;
     }
 
     .section-head {
       display: flex;
       justify-content: space-between;
-      gap: 24px;
       align-items: end;
-      margin-bottom: 28px;
+      gap: 20px;
+      margin-bottom: 18px;
     }
 
-    .section h2 {
-      font-size: clamp(42px, 6vw, 76px);
-      letter-spacing: -0.07em;
-      line-height: 0.98;
+    .section-title {
       margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      font-weight: 650;
     }
 
-    .section-desc {
+    .section-note {
+      margin: 0;
       max-width: 520px;
       color: var(--muted);
-      font-size: 17px;
-      line-height: 1.45;
-      margin: 0;
-    }
-
-    .home-tiles {
-      display: grid;
-      grid-template-columns: 1.3fr 0.75fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .tile {
-      min-height: 210px;
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.06);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-      overflow: hidden;
-      position: relative;
-      transition: transform 220ms ease, box-shadow 220ms ease;
-    }
-
-    .tile:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.10);
-    }
-
-    .tile.big {
-      min-height: 340px;
-      background:
-        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.72)),
-        linear-gradient(135deg, #dfeaff, #f7e4eb 48%, #eef6ed);
-    }
-
-    .tile.pet {
-      background:
-        linear-gradient(rgba(255,255,255,0.30), rgba(255,255,255,0.78)),
-        linear-gradient(135deg, #f9ecef, #ffffff);
-    }
-
-    .tile.car {
-      background:
-        linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.74)),
-        linear-gradient(135deg, #ececec, #dfe7f2);
-    }
-
-    .tile h3 {
-      font-size: 34px;
-      letter-spacing: -0.055em;
-      margin: 0 0 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .tile p {
-      color: var(--muted);
-      margin: 0;
       font-size: 16px;
-      line-height: 1.4;
-      position: relative;
-      z-index: 1;
-    }
-
-    .placeholder-label {
-      position: absolute;
-      top: 20px;
-      left: 22px;
-      font-size: 13px;
-      color: rgba(0,0,0,0.45);
-      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
     }
 
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      align-items: stretch;
+      gap: 20px;
     }
 
     .country-card {
-      min-height: 270px;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.82)),
-        var(--accent);
+      min-height: 320px;
+      border-radius: 30px;
+      padding: 22px;
+      position: relative;
       overflow: hidden;
-      padding: 24px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: var(--shadow-soft);
+      transition:
+        transform 260ms ease,
+        box-shadow 260ms ease,
+        opacity 220ms ease,
+        min-height 260ms ease,
+        grid-column 260ms ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition:
-        transform 260ms ease,
-        grid-column 260ms ease,
-        min-height 260ms ease,
-        opacity 240ms ease,
-        filter 240ms ease;
-      cursor: pointer;
-      position: relative;
     }
 
     .country-card:hover,
     .country-card.active {
-      transform: translateY(-6px);
-      min-height: 360px;
+      transform: translateY(-5px);
       box-shadow: var(--shadow);
+      min-height: 380px;
     }
 
     .photo-grid:has(.country-card:hover) .country-card:not(:hover) {
-      opacity: 0.45;
-      filter: saturate(0.75);
+      opacity: 0.48;
     }
 
     .country-card.active {
       grid-column: span 2;
     }
 
-    .country-card h3 {
-      font-size: 30px;
-      letter-spacing: -0.055em;
-      margin: 0;
+    .country-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.50));
+      pointer-events: none;
     }
 
-    .country-card p {
-      color: var(--muted);
-      margin: 10px 0 0;
+    .country-content,
+    .country-preview {
+      position: relative;
+      z-index: 1;
     }
 
-    .mini-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 260ms ease, opacity 260ms ease;
-      margin-top: 18px;
-    }
-
-    .country-card:hover .mini-strip,
-    .country-card.active .mini-strip {
-      max-height: 120px;
-      opacity: 1;
-    }
-
-    .mini-img {
-      height: 82px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.58);
-      border: 1px solid rgba(0,0,0,0.05);
-      display: grid;
-      place-items: center;
-      color: rgba(0,0,0,0.34);
+    .card-label {
       font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(17, 19, 24, 0.42);
+      margin-bottom: 12px;
+    }
+
+    .country-card h3,
+    .pet-card h3 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.05em;
       font-weight: 650;
     }
 
-    .pets-stage {
-      min-height: 600px;
-      position: relative;
+    .country-card p,
+    .pet-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .country-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 240ms ease, max-height 240ms ease;
+    }
+
+    .country-card:hover .country-preview,
+    .country-card.active .country-preview {
+      max-height: 140px;
+      opacity: 1;
+    }
+
+    .mini-box {
+      height: 92px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(17, 19, 24, 0.42);
+      background: rgba(255,255,255,0.46);
+      border: 1px solid rgba(255,255,255,0.36);
+      backdrop-filter: blur(10px);
+    }
+
+    .animals-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
     .pet-card {
-      position: absolute;
-      width: 46%;
-      min-height: 230px;
-      border-radius: 28px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.06);
-      padding: 28px;
-      transition:
-        transform 260ms ease,
-        width 260ms ease,
-        min-height 260ms ease,
-        opacity 220ms ease,
-        z-index 0ms;
+      min-height: 280px;
+      border-radius: 30px;
+      padding: 22px;
+      position: relative;
       overflow: hidden;
-      cursor: pointer;
-    }
-
-    .pet-card:nth-child(1) {
-      top: 20px;
-      left: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.32), rgba(255,255,255,0.78)),
-        linear-gradient(135deg, #ffe6e6, #fff);
-    }
-
-    .pet-card:nth-child(2) {
-      top: 160px;
-      left: 28%;
-      background:
-        linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.78)),
-        linear-gradient(135deg, #e8ecff, #fff);
-    }
-
-    .pet-card:nth-child(3) {
-      top: 320px;
-      right: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.78)),
-        linear-gradient(135deg, #e8f8ed, #fff);
-    }
-
-    .pets-stage:hover .pet-card:not(:hover) {
-      opacity: 0.28;
-      transform: scale(0.96);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: var(--shadow-soft);
+      transition: transform 240ms ease, box-shadow 240ms ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .pet-card:hover {
-      width: 58%;
-      min-height: 330px;
-      z-index: 5;
-      transform: translateY(-8px);
+      transform: translateY(-5px);
       box-shadow: var(--shadow);
-    }
-
-    .pet-card h3 {
-      font-size: 32px;
-      letter-spacing: -0.055em;
-      margin: 0;
-    }
-
-    .pet-card p {
-      color: var(--muted);
-      font-size: 16px;
-      margin-top: 10px;
     }
 
     .pet-preview {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-top: 22px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 220ms ease, transform 220ms ease;
+      margin-top: 18px;
     }
 
-    .pet-card:hover .pet-preview {
-      opacity: 1;
-      transform: translateY(0);
+    .car-panel {
+      border-radius: 34px;
+      padding: 22px;
+      overflow: hidden;
     }
 
-    .car-gallery {
+    .car-grid {
       display: grid;
-      grid-template-columns: 1fr 0.28fr 1fr;
-      grid-template-rows: 260px 260px;
-      gap: 0;
-      align-items: stretch;
-      margin-top: 28px;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: 280px 220px;
+      gap: 18px;
     }
 
-    .car-img {
-      background: #e9e9eb;
+    .car-box {
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.52)),
+        rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.36);
       display: grid;
       place-items: center;
-      color: rgba(0,0,0,0.56);
-      font-size: clamp(20px, 2.5vw, 34px);
-      letter-spacing: -0.045em;
-      padding: 30px;
+      color: rgba(17, 19, 24, 0.58);
+      font-size: clamp(18px, 2vw, 28px);
+      letter-spacing: -0.04em;
       text-align: center;
-      overflow: hidden;
-      position: relative;
+      padding: 20px;
     }
 
-    .car-img::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(0,113,227,0.07), transparent),
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.85), transparent 30%);
+    .car-box.large-left {
+      grid-row: 1;
+      grid-column: 1;
     }
 
-    .car-img span {
-      position: relative;
-      z-index: 1;
+    .car-box.large-right {
+      grid-row: 1;
+      grid-column: 2;
     }
 
-    .side-view {
+    .car-box.bottom {
       grid-column: 1 / 3;
-      grid-row: 1;
-      border-radius: 30px 0 0 30px;
-    }
-
-    .angle-view {
-      grid-column: 2 / 4;
-      grid-row: 1;
-      border-radius: 0 30px 30px 0;
-      background: #eeeeef;
-    }
-
-    .front-view {
-      grid-column: 1 / 4;
       grid-row: 2;
-      width: 62%;
-      justify-self: center;
-      border-radius: 0 0 30px 30px;
-      background: #e6e6e8;
+    }
+
+    .reach-out {
+      padding-bottom: 80px;
+    }
+
+    .reach-panel {
+      border-radius: 34px;
+      padding: 24px;
+    }
+
+    .reach-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .reach-link {
+      min-height: 120px;
+      border-radius: 24px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      background: rgba(255,255,255,0.42);
+      border: 1px solid rgba(255,255,255,0.36);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .reach-link:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,0.58);
+    }
+
+    .reach-top {
+      font-size: 13px;
+      color: #7c8793;
+      letter-spacing: -0.01em;
+    }
+
+    .reach-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .reach-name {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+    }
+
+    .reach-meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .reach-arrow {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 700;
     }
 
     .footer {
-      padding: 54px 0 80px;
-      color: var(--muted);
+      padding: 0 0 50px;
+      color: #7c8793;
       font-size: 14px;
       display: flex;
       justify-content: space-between;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .footer a {
-      color: var(--blue);
-    }
-
-    @media (max-width: 860px) {
+    @media (max-width: 980px) {
       .nav {
         grid-template-columns: 1fr;
-        height: auto;
         gap: 10px;
-        border-radius: 24px;
+        min-height: auto;
         padding: 16px;
-        position: relative;
-        top: auto;
+        border-radius: 26px;
       }
 
       .brand,
@@ -578,32 +461,20 @@
       }
 
       .nav-links {
-        justify-content: center;
-        flex-wrap: wrap;
         gap: 14px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding-top: 34px;
-      }
-
-      .hero-card {
-        padding: 36px 28px;
-        min-height: 360px;
       }
 
       .section-head {
         display: block;
       }
 
-      .section-desc {
-        margin-top: 14px;
+      .section-note {
+        margin-top: 12px;
       }
 
-      .home-tiles,
-      .photo-grid {
+      .photo-grid,
+      .animals-layout,
+      .reach-grid {
         grid-template-columns: 1fr;
       }
 
@@ -611,218 +482,158 @@
         grid-column: span 1;
       }
 
-      .pets-stage {
-        min-height: auto;
-        display: grid;
-        gap: 16px;
-      }
-
-      .pet-card,
-      .pet-card:nth-child(1),
-      .pet-card:nth-child(2),
-      .pet-card:nth-child(3) {
-        position: relative;
-        inset: auto;
-        width: 100%;
-      }
-
-      .pet-card:hover {
-        width: 100%;
-      }
-
-      .pet-preview {
-        opacity: 1;
-        transform: none;
-      }
-
-      .car-gallery {
-        display: grid;
+      .car-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: none;
-        gap: 14px;
+        grid-template-rows: auto;
       }
 
-      .side-view,
-      .angle-view,
-      .front-view {
+      .car-box.large-left,
+      .car-box.large-right,
+      .car-box.bottom {
         grid-column: auto;
         grid-row: auto;
-        width: 100%;
-        border-radius: 28px;
-        min-height: 250px;
-      }
-
-      .footer {
-        display: block;
+        min-height: 220px;
       }
     }
   </style>
 </head>
-
 <body>
-  <nav class="nav">
-    <a class="brand" href="#top">Eli.V</a>
+  <div class="shell">
+    <div class="nav-wrap">
+      <nav class="nav glass">
+        <a class="brand" href="#top">Eli.V</a>
 
-    <div class="nav-links">
-      <a href="#photography">Photography</a>
-      <a href="#car">Car</a>
-      <a href="#pets">Pets</a>
-      <a href="#links">Links</a>
+        <div class="nav-links">
+          <a href="#photography">Photography</a>
+          <a href="#animals">Animals</a>
+          <a href="#car">Car</a>
+          <a href="#reach-out">Reach out</a>
+        </div>
+
+        <div class="nav-right">elivassar.com</div>
+      </nav>
     </div>
 
-    <div class="nav-right">elivassar.com</div>
-  </nav>
+    <header class="intro" id="top">
+      <div class="intro-card glass">
+        <div class="intro-top">
+          <div>
+            <h1>Eli Vassar</h1>
+            <p>
+              A clean place for photography, animals, car photos, design interests,
+              and future projects.
+            </p>
+          </div>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-card">
-        <div class="eyebrow">Personal gallery / projects / experiments</div>
-        <h1>Eli Vassar</h1>
-        <p>A clean home base for photography, pets, car photos, keyboards, and whatever else I’m working on.</p>
-      </div>
-
-      <aside class="link-panel" id="links">
-        <h2>Links</h2>
-        <p>Places to contact me or find my other stuff.</p>
-
-        <div class="link-list">
-<a href="#" aria-disabled="true">
-  Email coming soon <span class="arrow">↗</span>
-</a>
-
-          <a href="https://www.instagram.com/eli.vassar" target="_blank" rel="noopener">
-            Instagram <span class="arrow">↗</span>
-          </a>
-
-          <span>
-            Discord <strong>eliive</strong>
-          </span>
-
-          <a href="https://www.youtube.com/@Eliveboards" target="_blank" rel="noopener">
-            YouTube <span class="arrow">↗</span>
-          </a>
-
-          <a href="#" aria-disabled="true">
-            Keyboard site soon <span class="arrow">↗</span>
-          </a>
-        </div>
-      </aside>
-    </section>
-
-    <section class="section">
-      <div class="home-tiles">
-        <a class="tile big" href="#photography">
-          <span class="placeholder-label">Featured</span>
-          <h3>Photography gallery</h3>
-          <p>Vacation and travel photos organized by place.</p>
-        </a>
-
-        <div>
-          <a class="tile pet" href="#pets" style="margin-bottom: 18px;">
-            <span class="placeholder-label">Animals</span>
-            <h3>Pets</h3>
-            <p>Dora, Cocoa, and pet photos.</p>
-          </a>
-
-          <a class="tile car" href="#car">
-            <span class="placeholder-label">Car</span>
-            <h3>Car</h3>
-            <p>Large blended image layout.</p>
-          </a>
+          <div class="mini-note">
+            Personal site / gallery / experiments
+          </div>
         </div>
       </div>
-    </section>
+    </header>
 
     <section class="section" id="photography">
       <div class="section-head">
-        <h2>Photography</h2>
-        <p class="section-desc">
-          Hover on desktop or tap on mobile. Each country card expands to preview more photos.
-          These are placeholders for now.
+        <h2 class="section-title">Photography</h2>
+        <p class="section-note">
+          Placeholder galleries for now. On desktop they expand on hover,
+          and on mobile they expand when tapped.
         </p>
       </div>
 
       <div class="photo-grid">
-        <article class="country-card" style="--accent: linear-gradient(135deg, #dbeafe, #fff);">
-          <div>
-            <span class="placeholder-label">Country</span>
+        <article class="country-card glass" style="background: linear-gradient(135deg, var(--blue-soft), #edf3fb);">
+          <div class="country-content">
+            <div class="card-label">Country</div>
             <h3>Czech Republic</h3>
-            <p>Placeholder gallery for Prague and travel photos.</p>
+            <p>Travel photos, city streets, and future gallery highlights.</p>
           </div>
 
-          <div class="mini-strip">
-            <div class="mini-img">Photo 1</div>
-            <div class="mini-img">Photo 2</div>
-            <div class="mini-img">Photo 3</div>
+          <div class="country-preview">
+            <div class="mini-box">Photo 1</div>
+            <div class="mini-box">Photo 2</div>
+            <div class="mini-box">Photo 3</div>
           </div>
         </article>
 
-        <article class="country-card" style="--accent: linear-gradient(135deg, #fff3d8, #fff);">
-          <div>
-            <span class="placeholder-label">Country</span>
+        <article class="country-card glass" style="background: linear-gradient(135deg, #ece8df, #f4f1ea);">
+          <div class="country-content">
+            <div class="card-label">Place</div>
             <h3>San Diego</h3>
-            <p>Local photos, beach, city, and daily life.</p>
+            <p>Local photos, architecture, coast, and day-to-day scenes.</p>
           </div>
 
-          <div class="mini-strip">
-            <div class="mini-img">Photo 1</div>
-            <div class="mini-img">Photo 2</div>
-            <div class="mini-img">Photo 3</div>
+          <div class="country-preview">
+            <div class="mini-box">Photo 1</div>
+            <div class="mini-box">Photo 2</div>
+            <div class="mini-box">Photo 3</div>
           </div>
         </article>
 
-        <article class="country-card" style="--accent: linear-gradient(135deg, #e7f8ec, #fff);">
-          <div>
-            <span class="placeholder-label">Country</span>
+        <article class="country-card glass" style="background: linear-gradient(135deg, #e5eee9, #edf4f0);">
+          <div class="country-content">
+            <div class="card-label">Archive</div>
             <h3>Other Trips</h3>
-            <p>Future gallery for more countries and vacations.</p>
+            <p>Future galleries for more travel and photography collections.</p>
           </div>
 
-          <div class="mini-strip">
-            <div class="mini-img">Photo 1</div>
-            <div class="mini-img">Photo 2</div>
-            <div class="mini-img">Photo 3</div>
+          <div class="country-preview">
+            <div class="mini-box">Photo 1</div>
+            <div class="mini-box">Photo 2</div>
+            <div class="mini-box">Photo 3</div>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="section" id="pets">
+    <section class="section" id="animals">
       <div class="section-head">
-        <h2>Animals</h2>
-        <p class="section-desc">
-          Pet cards overlap on desktop. Hovering makes one expand while the others fade back.
+        <h2 class="section-title">Animals</h2>
+        <p class="section-note">
+          Placeholder sections for Dora, Cocoa, and Daisy.
         </p>
       </div>
 
-      <div class="pets-stage">
-        <article class="pet-card">
-          <h3>Photos of Dora</h3>
-          <p>Dog photos will go here.</p>
+      <div class="animals-layout">
+        <article class="pet-card glass" style="background: linear-gradient(135deg, #efe5e6, #f8f3f4);">
+          <div>
+            <div class="card-label">Dog</div>
+            <h3>Dora</h3>
+            <p>Photos of Dora will go here.</p>
+          </div>
+
           <div class="pet-preview">
-            <div class="mini-img">Dora 1</div>
-            <div class="mini-img">Dora 2</div>
-            <div class="mini-img">Dora 3</div>
+            <div class="mini-box">Dora 1</div>
+            <div class="mini-box">Dora 2</div>
+            <div class="mini-box">Dora 3</div>
           </div>
         </article>
 
-        <article class="pet-card">
-          <h3>Photos of Cocoa</h3>
-          <p>Cat photos will go here.</p>
+        <article class="pet-card glass" style="background: linear-gradient(135deg, #e8ebf5, #f3f5fb);">
+          <div>
+            <div class="card-label">Cat</div>
+            <h3>Cocoa</h3>
+            <p>Photos of Cocoa will go here.</p>
+          </div>
+
           <div class="pet-preview">
-            <div class="mini-img">Cocoa 1</div>
-            <div class="mini-img">Cocoa 2</div>
-            <div class="mini-img">Cocoa 3</div>
+            <div class="mini-box">Cocoa 1</div>
+            <div class="mini-box">Cocoa 2</div>
+            <div class="mini-box">Cocoa 3</div>
           </div>
         </article>
 
-        <article class="pet-card">
-          <h3>Other Animals</h3>
-          <p>Extra animal photos or future pet galleries.</p>
+        <article class="pet-card glass" style="background: linear-gradient(135deg, #e4ece8, #f0f5f3);">
+          <div>
+            <div class="card-label">Dog</div>
+            <h3>Daisy</h3>
+            <p>Photos of Daisy will go here.</p>
+          </div>
+
           <div class="pet-preview">
-            <div class="mini-img">Photo 1</div>
-            <div class="mini-img">Photo 2</div>
-            <div class="mini-img">Photo 3</div>
+            <div class="mini-box">Daisy 1</div>
+            <div class="mini-box">Daisy 2</div>
+            <div class="mini-box">Daisy 3</div>
           </div>
         </article>
       </div>
@@ -830,26 +641,94 @@
 
     <section class="section" id="car">
       <div class="section-head">
-        <h2>Car</h2>
-        <p class="section-desc">
-          Big image blocks with no hard border. These will blend better once real car photos replace the placeholders.
+        <h2 class="section-title">Car</h2>
+        <p class="section-note">
+          Placeholder image panels for a cleaner, more architectural layout.
         </p>
       </div>
 
-      <div class="car-gallery">
-        <div class="car-img side-view"><span>Side view of car</span></div>
-        <div class="car-img angle-view"><span>Angle view from front</span></div>
-        <div class="car-img front-view"><span>Front view of car</span></div>
+      <div class="car-panel glass">
+        <div class="car-grid">
+          <div class="car-box large-left">Side view of car</div>
+          <div class="car-box large-right">Front angle view</div>
+          <div class="car-box bottom">Front view / detail shot</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reach-out" id="reach-out">
+      <div class="section-head">
+        <h2 class="section-title">Reach out</h2>
+        <p class="section-note">
+          Short links only. You can change these later whenever your other site is ready.
+        </p>
+      </div>
+
+      <div class="reach-panel glass">
+        <div class="reach-grid">
+          <a class="reach-link" href="#" aria-disabled="true">
+            <div class="reach-top">Reach out</div>
+            <div class="reach-main">
+              <div>
+                <div class="reach-name">Email</div>
+                <div class="reach-meta">coming soon</div>
+              </div>
+              <div class="reach-arrow">↗</div>
+            </div>
+          </a>
+
+          <a class="reach-link" href="https://instagram.com/eli.vassar" target="_blank" rel="noopener">
+            <div class="reach-top">Reach out</div>
+            <div class="reach-main">
+              <div>
+                <div class="reach-name">Instagram</div>
+                <div class="reach-meta">instagram.com/eli.vassar</div>
+              </div>
+              <div class="reach-arrow">↗</div>
+            </div>
+          </a>
+
+          <a class="reach-link" href="#" aria-disabled="true">
+            <div class="reach-top">Reach out</div>
+            <div class="reach-main">
+              <div>
+                <div class="reach-name">Discord</div>
+                <div class="reach-meta">eliive</div>
+              </div>
+              <div class="reach-arrow">↗</div>
+            </div>
+          </a>
+
+          <a class="reach-link" href="https://youtube.com/@Eliveboards" target="_blank" rel="noopener">
+            <div class="reach-top">Reach out</div>
+            <div class="reach-main">
+              <div>
+                <div class="reach-name">YouTube</div>
+                <div class="reach-meta">youtube.com/@Eliveboards</div>
+              </div>
+              <div class="reach-arrow">↗</div>
+            </div>
+          </a>
+
+          <a class="reach-link" href="#" aria-disabled="true">
+            <div class="reach-top">Reach out</div>
+            <div class="reach-main">
+              <div>
+                <div class="reach-name">Keyboard site</div>
+                <div class="reach-meta">coming soon</div>
+              </div>
+              <div class="reach-arrow">↗</div>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
     <footer class="footer">
       <div>© 2026 Eli Vassar</div>
-      <div>
-        Built on GitHub Pages · <a href="#top">Back to top</a>
-      </div>
+      <div>Built on GitHub Pages</div>
     </footer>
-  </main>
+  </div>
 
   <script>
     const countryCards = document.querySelectorAll(".country-card");
@@ -859,7 +738,6 @@
         countryCards.forEach((other) => {
           if (other !== card) other.classList.remove("active");
         });
-
         card.classList.toggle("active");
       });
     });
